@@ -1,0 +1,17 @@
+@{
+  Layout = "_Layout";
+}
+<div class="jumbotron">
+<h1>Here is your Result</h1>
+  <div>
+  @if(Model != null)
+  {
+    foreach(var m in Model.FindAnagram())
+    {
+      <p>@m</p>
+    }
+  }
+</div>
+
+<a href="/"><button class="btn btn-lg btn-primary">  Home</button></a>
+</div>

@@ -24,48 +24,60 @@ namespace Anagram.Models
     {
       return _word2;
     }
-    public List<string> GetWordList()
-    {
-      return _wordList;
-    }
     public bool IsAnagram(char [] arr1, char [] arr2)
     {
       bool isAnagram = true;
-      for (int i = 0; i< arr1.Length; i++)
-      {
-        if (arr1[i] != arr2[i])
-        {
-            isAnagram = false;
-        }
-      }
+      if (arr1.Length != arr2.Length)
+       {
+        isAnagram = false;
+       }
+       else
+       {
+         for (int i = 0; i< arr1.Length; i++)
+         {
+            if (arr1[i] != arr2[i])
+            {
+               isAnagram = false;
+            }
+         }
+       }
       return isAnagram;
     }
     public List<string> FindAnagram()
     {
       List<string> anagramList =  new List<string>();
-
+      if( _word1 == "")
+      {
+        anagramList.Add("Error Message : Please enter the word to match.");
+        return anagramList;
+      }
+      if( _word2 == "")
+      {
+        anagramList.Add("Error Message : Please enter the list of words to match.");
+        return anagramList;
+      }
       foreach (string word in _wordList)
       {
         char [] word1CharArr = _word1.ToCharArray();
         Array.Sort(word1CharArr);
         char [] temp = word.ToCharArray();
         Array.Sort(temp);
-
-        if (temp.Length != _word1.Length)
-        {
-          continue;
-        }
-        else
-        {
           bool isAnagram = IsAnagram(temp, word1CharArr);
           if (isAnagram == true)
           {
             Console.WriteLine("Message: " + word + " and " + _word1 + " are anagrams");
             anagramList.Add(word);
           }
-        }
+      }
+      if(anagramList.Count == 0)
+      {
+        anagramList.Add("Message: No anagrams found.");
       }
       return anagramList;
+    }
+    public static void ClearAll()
+    {
+      _wordList.Clear();
     }
   }
 }
